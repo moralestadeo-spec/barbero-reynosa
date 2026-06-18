@@ -1,6 +1,18 @@
 import streamlit as st
 import pandas as pd
-import os
+from datetime import datetime
+import os  # <-- Para que revise si existe el archivo en la nube
+
+# Nombre del archivo de base de datos
+EXCEL_FILE = "registro_barberia.xlsx"
+
+# Si el archivo no existe en internet, lo creamos limpio antes de que tire error
+if not os.path.exists(EXCEL_FILE):
+    df_inicial = pd.DataFrame(columns=["Fecha", "Cliente", "Telefono", "Barbero", "Estado", "Precio", "Metodo_Pago"])
+    df_inicial.to_excel(EXCEL_FILE, index=False)
+
+# Ahora sí, el código original sigue aquí abajo:
+df = pd.read_excel(EXCEL_FILE)
 
 # Configuración de pantalla optimizada para tablet o cel en sucursal
 st.set_page_config(page_title="Panel de Barberos", page_icon="✂️", layout="centered")
