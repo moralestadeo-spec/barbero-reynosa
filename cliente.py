@@ -1,16 +1,14 @@
 import streamlit as st
 import pandas as pd
-import os
-import urllib.parse
+from datetime import datetime
+import os  # <-- Asegúrate de que esta línea esté para revisar los archivos
 
-# Configuración estilo celular para el cliente
-st.set_page_config(page_title="Check-In Barbería Reynosa", page_icon="💈", layout="centered")
+# Nombre del archivo de base de datos
+EXCEL_FILE = "registro_barberia.xlsx"
 
-EXCEL_FILE = 'registro_barberia.xlsx'
-
-# Inicializar Base de Datos si no existe
+# VERIFICACIÓN DE EMERGENCIA: Si el archivo no existe en internet, lo creamos limpio
 if not os.path.exists(EXCEL_FILE):
-    df_inicial = pd.DataFrame(columns=['ID', 'Cliente', 'Telefono', 'Barbero', 'Estado', 'Servicio', 'Total', 'Metodo_Pago'])
+    df_inicial = pd.DataFrame(columns=["Fecha", "Cliente", "Telefono", "Barbero", "Estado", "Precio", "Metodo_Pago"])
     df_inicial.to_excel(EXCEL_FILE, index=False)
 
 df = pd.read_excel(EXCEL_FILE)
